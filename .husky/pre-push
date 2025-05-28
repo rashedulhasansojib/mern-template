@@ -1,0 +1,1 @@
+npx run lint:frontend && npx run format:frontend
