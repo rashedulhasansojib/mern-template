@@ -6,36 +6,40 @@
   "type": "commonjs",
   "scripts": {
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
-    "dev:backend": "cd backend && npm run dev",
-    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
     "build": "npm run build:backend && npm run build:frontend",
-    "build:backend": "cd backend && npm run build",
-    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "npm --prefix backend run build",
+    "build:frontend": "npm --prefix frontend run build",
     "lint": "npm run lint:backend && npm run lint:frontend",
-    "lint:backend": "cd backend && npm run lint",
-    "lint:frontend": "cd frontend && npm run lint",
+    "lint:backend": "npm --prefix backend run lint",
+    "lint:frontend": "npm --prefix frontend run lint",
     "lint:fix": "npm run lint:fix:backend && npm run lint:fix:frontend",
-    "lint:fix:backend": "cd backend && npm run lint:fix",
-    "lint:fix:frontend": "cd frontend && npm run lint:fix",
+    "lint:fix:backend": "npm --prefix backend run lint:fix",
+    "lint:fix:frontend": "npm --prefix frontend run lint:fix",
+    "lint:fix:backend:staged": "npm --prefix backend run lint:fix",
+    "lint:fix:frontend:staged": "npm --prefix frontend run lint:fix",
     "format": "npm run format:backend && npm run format:frontend",
-    "format:backend": "cd backend && npm run format",
-    "format:frontend": "cd frontend && npm run format",
+    "format:backend": "npm --prefix backend run format",
+    "format:frontend": "npm --prefix frontend run format",
+    "format:backend:staged": "npm --prefix backend run format",
+    "format:frontend:staged": "npm --prefix frontend run format",
     "type-check": "npm run type-check:backend && npm run type-check:frontend",
-    "type-check:backend": "cd backend && npm run type-check",
-    "type-check:frontend": "cd frontend && npm run type-check",
+    "type-check:backend": "npm --prefix backend run type-check",
+    "type-check:frontend": "npm --prefix frontend run type-check",
     "test": "npm run test:backend && npm run test:frontend",
-    "test:backend": "cd backend && npm run test",
-    "test:frontend": "cd frontend && npm run test",
+    "test:backend": "npm --prefix backend run test",
+    "test:frontend": "npm --prefix frontend run test",
     "prepare": "husky"
   },
   "lint-staged": {
     "backend/src/**/*.{ts,js}": [
-      "cd backend && npm run lint:fix",
-      "cd backend && npm run format"
+      "npm run lint:fix:backend:staged",
+      "npm run format:backend:staged"
     ],
     "frontend/src/**/*.{ts,tsx,js,jsx}": [
-      "cd frontend && npm run lint:fix",
-      "cd frontend && npm run format"
+      "npm run lint:fix:frontend:staged",
+      "npm run format:frontend:staged"
     ],
     "*.{json,md,yml,yaml}": [
       "prettier --write"
