@@ -3,6 +3,7 @@ const App = () => {
     <div className="flex flex-col min-h-screen">
       <div className="flex flex-1 items-center justify-center ">
         <h1 className="text-3xl text-red-500">Hello World!</h1>
+        <p>This is a Test.</p>
       </div>
     </div>
   );

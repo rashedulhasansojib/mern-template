@@ -22,6 +22,9 @@
 	},
 	"homepage": "https://github.com/rashedulhasansojib/mern-template#readme",
 	"devDependencies": {
+		"@commitlint/cli": "^19.8.1",
+		"@commitlint/config-conventional": "^19.8.1",
+		"commitlint": "^19.8.1",
 		"husky": "^9.1.7",
 		"lint-staged": "^16.1.0"
 	},
@@ -29,6 +32,11 @@
 		"frontend/src/**/*.{js,jsx,ts,tsx}": [
 			"npm run lint:fix:frontend",
 			"npm run format:frontend"
+		]
+	},
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
 		]
 	}
 }
