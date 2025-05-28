@@ -1,1 +1,5 @@
-npx run lint:frontend && npx run format:frontend
+# Run tests before pushing
+npm run test
+
+# Run build to ensure everything compiles
+npm run build

@@ -1,1 +1,5 @@
+# Run type checking for both frontend and backend
+npm run type-check
+
+# Run lint-staged
 npx lint-staged
