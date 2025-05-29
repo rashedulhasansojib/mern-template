@@ -58,4 +58,22 @@ frontend/.cache/
 .env
 .env.local
 .env.*.local
-!.env.example 
+!.env.example
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Coverage directory
+coverage/
+
+# Local development files
+.local/
+
+# Additional build artifacts
+*.tsbuildinfo
+frontend/tsconfig.*.tsbuildinfo
+backend/tsconfig.*.tsbuildinfo
+
+# Temporary files
+.temp/
+.tmp/ 
