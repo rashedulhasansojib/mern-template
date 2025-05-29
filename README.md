@@ -16,7 +16,7 @@ A modern, beginner-friendly MERN (MongoDB, Express.js, React, Node.js) stack tem
 1. **Clone the template**
 
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/rashedulhasansojib/mern-template.git
    cd mern-template
    ```
 

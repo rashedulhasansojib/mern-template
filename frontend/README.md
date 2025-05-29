@@ -4,7 +4,7 @@ This is the frontend application for the MERN stack, built with React, TypeScrip
 
 ## Prerequisites
 
-- Node.js (v18 or higher)
+- Node.js (v22 or higher)
 - npm or yarn
 
 ## Setup
@@ -71,7 +71,7 @@ frontend/
 ## Features
 
 - ⚡️ Vite for fast development and building
-- 🔥 React 18 with TypeScript
+- 🔥 React 19 with TypeScript
 - 📦 Modern ES6+ features
 - 🎨 CSS Modules and SCSS support
 - 📱 Responsive design

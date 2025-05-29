@@ -4,7 +4,7 @@ This is the backend server for the MERN stack application, built with Node.js, E
 
 ## Prerequisites
 
-- Node.js (v18 or higher)
+- Node.js (v22 or higher)
 - MongoDB (v6 or higher)
 - npm or yarn
 
