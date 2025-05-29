@@ -11,8 +11,7 @@
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,json}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,css,json}\"",
-    "type-check": "tsc --noEmit",
-    "test": "vitest"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.7",

@@ -6,7 +6,7 @@ A modern, beginner-friendly MERN (MongoDB, Express.js, React, Node.js) stack tem
 
 ### Prerequisites
 
-- Node.js (v18 or higher)
+- Node.js (v22 or higher)
 - npm (comes with Node.js)
 - Git
 - MongoDB (local or Atlas)
@@ -201,6 +201,399 @@ VITE_API_URL=http://localhost:5000
    - Create pull requests to `main`
    - Check GitHub Actions status
    - Review build logs for issues
+
+## 🔒 Git Hooks
+
+This project uses Husky to manage Git hooks, ensuring code quality and consistency. Here's what each hook does:
+
+### Available Hooks
+
+1. **pre-commit** (Runs before each commit):
+
+   ```bash
+   # Checks
+   - Type checking (TypeScript)
+   - Code formatting (Prettier)
+   - Linting (ESLint)
+   ```
+
+   This hook ensures that:
+
+   - All TypeScript types are valid
+   - Code is properly formatted
+   - No linting errors exist
+   - Only runs on staged files
+
+2. **pre-push** (Runs before pushing to remote):
+
+   ```bash
+   # Checks
+   - Build verification
+   ```
+
+   This hook ensures that:
+
+   - The project builds successfully
+   - No compilation errors exist
+   - Code is ready for deployment
+
+3. **commit-msg** (Runs after commit message is written):
+   ```bash
+   # Checks
+   - Commit message format
+   ```
+   This hook ensures that:
+   - Commit messages follow conventional format
+   - Messages are descriptive and consistent
+   - Better changelog generation
+
+### Commit Message Format
+
+Commit messages should follow the conventional format:
+
+```
+type(scope): subject
+
+[optional body]
+
+[optional footer]
+```
+
+Types:
+
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation changes
+- `style`: Code style changes (formatting, etc.)
+- `refactor`: Code refactoring
+- `test`: Adding or modifying tests
+- `chore`: Maintenance tasks
+
+Examples:
+
+```bash
+# Feature
+git commit -m "feat(auth): add user login functionality"
+
+# Bug fix
+git commit -m "fix(api): resolve user data fetching error"
+
+# Documentation
+git commit -m "docs(readme): update setup instructions"
+
+# Style
+git commit -m "style(components): format button component"
+```
+
+### Working with Hooks
+
+1. **Skipping Hooks** (if needed):
+
+   ```bash
+   # Skip all hooks
+   git commit -m "message" --no-verify
+
+   # Skip specific hook
+   HUSKY_SKIP_HOOKS=pre-push git push
+   ```
+
+2. **Troubleshooting**:
+
+   - If hooks fail, fix the issues before committing
+   - Check error messages for specific problems
+   - Run checks manually if needed:
+
+     ```bash
+     # Type checking
+     npm run type-check
+
+     # Linting
+     npm run lint
+
+     # Formatting
+     npm run format
+
+     # Build
+     npm run build
+     ```
+
+3. **Best Practices**:
+   - Commit frequently with meaningful messages
+   - Keep commits focused and atomic
+   - Fix hook errors before bypassing
+   - Review hook output for issues
+
+## 🌿 Branch Strategy
+
+This project follows a simple two-branch strategy:
+
+### Branches
+
+1. **main** (Production):
+
+   - Stable, production-ready code
+   - Protected branch
+   - Only accepts merges from `develop`
+   - Triggers production deployment (when configured)
+
+2. **develop** (Development):
+   - Active development branch
+   - Feature branches merge here
+   - Triggers staging deployment (when configured)
+   - Used for testing and integration
+
+### Workflow
+
+1. **Starting New Features**:
+
+   ```bash
+   # Create and switch to a new feature branch
+   git checkout develop
+   git pull origin develop
+   git checkout -b feature/your-feature-name
+   ```
+
+2. **Working on Features**:
+
+   ```bash
+   # Make your changes
+   git add .
+   git commit -m "feat(feature): your feature description"
+
+   # Keep your branch updated
+   git checkout develop
+   git pull origin develop
+   git checkout feature/your-feature-name
+   git merge develop
+   ```
+
+3. **Merging Features**:
+
+   ```bash
+   # Push your feature branch
+   git push origin feature/your-feature-name
+
+   # Create a Pull Request to develop
+   # After review and approval, merge to develop
+   ```
+
+4. **Releasing to Production**:
+   ```bash
+   # When ready to release
+   git checkout main
+   git pull origin main
+   git merge develop
+   git push origin main
+   ```
+
+### Best Practices
+
+1. **Branch Naming**:
+
+   - Feature branches: `feature/feature-name`
+   - Bug fixes: `fix/bug-description`
+   - Documentation: `docs/description`
+   - Hotfixes: `hotfix/issue-description`
+
+2. **Commit Messages**:
+
+   - Follow conventional commit format
+   - Be descriptive and clear
+   - Reference issues if applicable
+
+3. **Pull Requests**:
+
+   - Create PRs for all changes
+   - Include clear descriptions
+   - Request reviews when needed
+   - Address review comments
+
+4. **Keeping Updated**:
+   - Regularly pull from develop
+   - Resolve conflicts early
+   - Keep commits focused
+   - Test before merging
+
+## 🧪 Testing Guide
+
+### When to Add Tests
+
+1. **Start Adding Tests When You Have**:
+
+   - API endpoints in your backend
+   - React components with user interactions
+   - Complex business logic
+   - Database operations
+   - Authentication/Authorization features
+
+2. **Priority Order**:
+   1. Critical user flows (login, signup, etc.)
+   2. API endpoints
+   3. Database operations
+   4. Complex components
+   5. Utility functions
+
+### How to Add Tests
+
+1. **Backend Testing Setup**:
+
+   ```bash
+   cd backend
+   npm install --save-dev vitest @vitest/coverage-v8 supertest @types/supertest
+   ```
+
+   Add to `backend/package.json`:
+
+   ```json
+   {
+     "scripts": {
+       "test": "vitest",
+       "test:coverage": "vitest run --coverage",
+       "test:ui": "vitest --ui"
+     }
+   }
+   ```
+
+   Example API test (`backend/src/__tests__/api/auth.test.ts`):
+
+   ```typescript
+   import { describe, it, expect } from 'vitest';
+   import request from 'supertest';
+   import { app } from '../../src/app';
+
+   describe('Auth API', () => {
+     it('should register a new user', async () => {
+       const response = await request(app).post('/api/auth/register').send({
+         email: 'test@example.com',
+         password: 'password123',
+       });
+
+       expect(response.status).toBe(201);
+       expect(response.body).toHaveProperty('token');
+     });
+   });
+   ```
+
+2. **Frontend Testing Setup**:
+
+   ```bash
+   cd frontend
+   npm install --save-dev vitest @vitest/coverage-v8 @testing-library/react @testing-library/user-event jsdom
+   ```
+
+   Add to `frontend/package.json`:
+
+   ```json
+   {
+     "scripts": {
+       "test": "vitest",
+       "test:coverage": "vitest run --coverage",
+       "test:ui": "vitest --ui"
+     }
+   }
+   ```
+
+   Example component test (`frontend/src/__tests__/components/LoginForm.test.tsx`):
+
+   ```typescript
+   import { describe, it, expect } from 'vitest';
+   import { render, screen } from '@testing-library/react';
+   import userEvent from '@testing-library/user-event';
+   import { LoginForm } from '../../components/LoginForm';
+
+   describe('LoginForm', () => {
+     it('should show error for invalid email', async () => {
+       render(<LoginForm />);
+
+       const emailInput = screen.getByLabelText(/email/i);
+       await userEvent.type(emailInput, 'invalid-email');
+
+       const submitButton = screen.getByRole('button', { name: /login/i });
+       await userEvent.click(submitButton);
+
+       expect(screen.getByText(/invalid email/i)).toBeInTheDocument();
+     });
+   });
+   ```
+
+### Testing Best Practices
+
+1. **Write Tests For**:
+
+   - User interactions
+   - API endpoints
+   - Form validations
+   - Error handling
+   - Edge cases
+
+2. **Test Structure**:
+
+   ```
+   backend/
+   ├── src/
+   │   ├── __tests__/
+   │   │   ├── api/        # API endpoint tests
+   │   │   ├── unit/       # Unit tests
+   │   │   └── integration/# Integration tests
+
+   frontend/
+   ├── src/
+   │   ├── __tests__/
+   │   │   ├── components/ # Component tests
+   │   │   ├── pages/     # Page tests
+   │   │   └── hooks/     # Custom hooks tests
+   ```
+
+3. **Naming Conventions**:
+
+   - Test files: `*.test.ts` or `*.test.tsx`
+   - Test suites: `describe('Component/Feature Name', () => {})`
+   - Test cases: `it('should do something specific', () => {})`
+
+4. **Running Tests**:
+
+   ```bash
+   # Run all tests
+   npm test
+
+   # Run tests with coverage
+   npm run test:coverage
+
+   # Run tests in watch mode
+   npm test -- --watch
+
+   # Run specific test file
+   npm test -- path/to/test.test.ts
+   ```
+
+### Common Testing Patterns
+
+1. **API Testing**:
+
+   - Test HTTP methods (GET, POST, PUT, DELETE)
+   - Check response status codes
+   - Validate response data
+   - Test error cases
+
+2. **Component Testing**:
+
+   - Test user interactions
+   - Check component rendering
+   - Verify state changes
+   - Test props and callbacks
+
+3. **Database Testing**:
+   - Use test database
+   - Clean up after tests
+   - Test CRUD operations
+   - Verify data integrity
+
+### Resources for Learning Testing
+
+- [Vitest Documentation](https://vitest.dev/guide/)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- [Supertest Documentation](https://github.com/visionmedia/supertest)
+- [Testing Best Practices](https://kentcdodds.com/blog/common-mistakes-with-react-testing-library)
 
 ## 🎓 Learning Resources
 

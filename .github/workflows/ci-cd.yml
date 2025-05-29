@@ -2,9 +2,9 @@ name: MERN CI/CD Pipeline
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
-    branches: [main]
+    branches: [main, develop]
 
 jobs:
   build-and-test:
@@ -49,7 +49,7 @@ jobs:
 
     # Optional: Add deployment steps when ready
     # - name: Deploy to Staging
-    #   if: github.ref == 'refs/heads/main' && github.event_name == 'pull_request'
+    #   if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
     #   run: |
     #     echo "This would deploy to staging environment"
     #     # Add your staging deployment commands here

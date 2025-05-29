@@ -10,8 +10,7 @@
     "lint:fix": "eslint . --ext .ts,.js --fix",
     "format": "prettier --write \"src/**/*.{ts,js,json}\"",
     "format:check": "prettier --check \"src/**/*.{ts,js,json}\"",
-    "type-check": "tsc --noEmit",
-    "test": "vitest"
+    "type-check": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
