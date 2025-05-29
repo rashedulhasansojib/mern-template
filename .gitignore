@@ -33,6 +33,7 @@ Thumbs.db
 # Server specific
 backend/node_modules/
 backend/.env
+backend/dist/
 backend/logs/
 backend/uploads/
 
