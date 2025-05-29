@@ -6,11 +6,9 @@ import mongoose from 'mongoose';
 import logger from './utils/logger';
 
 // Connect to MongoDB
-const mongoUri = process.env.MONGODB_CONNECTION_STRING as string;
+const mongoUri = process.env.MONGODB_URI as string;
 if (!mongoUri) {
-  throw new Error(
-    'MONGODB_CONNECTION_STRING is not defined in environment variables'
-  );
+  throw new Error('MONGODB_URI is not defined in environment variables');
 }
 mongoose
   .connect(mongoUri)
@@ -33,7 +31,7 @@ app.get('/test', (req: Request, res: Response) => {
 });
 
 // Start the server
-const PORT = process.env.PORT ?? 3000;
+const PORT = process.env.PORT ?? 5000;
 app.listen(PORT, () => {
   logger.info(`Server is running on port ${PORT}`);
 });
