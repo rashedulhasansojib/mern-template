@@ -52,28 +52,46 @@ A modern, beginner-friendly MERN (MongoDB, Express.js, React, Node.js) stack tem
 
 ## 🔄 CI/CD Pipeline
 
-This project includes a simple CI/CD pipeline that runs on GitHub Actions. Here's how it works:
+This project includes a CI/CD pipeline that runs on GitHub Actions. The pipeline is configured to ensure code quality and prepare for deployment.
+
+### Pipeline Triggers
+
+The pipeline runs on:
+
+- Push to `main` or `develop` branches
+- Pull requests to `main` or `develop` branches
 
 ### Pipeline Steps
 
-1. **Trigger**: Runs on:
+1. **Setup**:
 
-   - Push to `main` branch
-   - Pull requests to `main` branch
+   - Checks out code
+   - Sets up Node.js v22
+   - Configures npm caching for faster builds
 
-2. **Build Process**:
-   - Installs dependencies
-   - Checks code format
-   - Runs linting
-   - Performs type checking
-   - Builds the application
+2. **Dependency Installation**:
+
+   - Installs root dependencies
+   - Installs backend dependencies
+   - Installs frontend dependencies
+
+3. **Code Quality Checks**:
+
+   - Code formatting (Prettier)
+   - Linting (ESLint)
+   - Type checking (TypeScript)
+   - Build verification
+
+4. **Deployment** (Ready to be configured):
+   - Staging deployment (on push to `develop`)
+   - Production deployment (on push to `main`)
 
 ### Setting Up CI/CD
 
 1. **Enable GitHub Actions**:
 
    - Go to your repository on GitHub
-   - Click on "Actions" tab
+   - Navigate to "Actions" tab
    - Enable GitHub Actions if not already enabled
 
 2. **Configure Environment Variables** (when ready to deploy):
@@ -82,19 +100,49 @@ This project includes a simple CI/CD pipeline that runs on GitHub Actions. Here'
    - Add necessary secrets:
      - `STAGING_API_KEY` (for staging deployment)
      - `PRODUCTION_API_KEY` (for production deployment)
+     - `MONGODB_URI` (for database connection)
+     - `JWT_SECRET` (for authentication)
 
-3. **Monitor Pipeline**:
-   - Check the "Actions" tab in your repository
-   - View build logs and status
-   - Fix any issues that arise
+3. **Customize Pipeline**:
 
-### Pipeline Features
+   - Review `.github/workflows/ci-cd.yml`
+   - Uncomment deployment steps when ready
+   - Add your deployment commands
+   - Configure environment-specific variables
 
-- ✅ Automatic builds on push/PR
-- ✅ Code quality checks (format, lint, types)
-- ✅ Dependency caching
-- ✅ Build verification
-- 🔄 Deployment ready (commented out)
+4. **Monitor Pipeline**:
+   - Check the "Actions" tab for build status
+   - Review build logs for issues
+   - Set up notifications for build failures
+
+### Pipeline Best Practices
+
+1. **Code Quality**:
+
+   - Consider removing `continue-on-error` for production
+   - Add test coverage requirements
+   - Implement security scanning
+   - Add performance benchmarks
+
+2. **Deployment**:
+
+   - Use blue-green deployment for zero downtime
+   - Implement rollback procedures
+   - Add deployment approvals for production
+   - Monitor deployment health
+
+3. **Security**:
+
+   - Rotate secrets regularly
+   - Use environment-specific variables
+   - Implement dependency scanning
+   - Add security policy checks
+
+4. **Performance**:
+   - Use caching for faster builds
+   - Parallelize jobs where possible
+   - Optimize build steps
+   - Monitor build times
 
 ## 📁 Project Structure (Recommended)
 
