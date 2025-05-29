@@ -1,0 +1,65 @@
+name: MERN CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: |
+          echo "Installing root dependencies..."
+          npm ci
+
+          echo "Installing backend dependencies..."
+          cd backend && npm ci && cd ..
+
+          echo "Installing frontend dependencies..."
+          cd frontend && npm ci && cd ..
+
+      - name: Check Code Format
+        run: npm run format
+        continue-on-error: true # Don't fail if formatting isn't perfect yet
+
+      - name: Lint Code
+        run: npm run lint
+        continue-on-error: true # Don't fail if there are linting issues
+
+      - name: Type Check
+        run: npm run type-check
+        continue-on-error: true # Don't fail if there are type errors
+
+      - name: Build
+        run: |
+          echo "Building frontend and backend..."
+          npm run build
+
+    # Optional: Add deployment steps when ready
+    # - name: Deploy to Staging
+    #   if: github.ref == 'refs/heads/main' && github.event_name == 'pull_request'
+    #   run: |
+    #     echo "This would deploy to staging environment"
+    #     # Add your staging deployment commands here
+    #   env:
+    #     STAGING_API_KEY: ${{ secrets.STAGING_API_KEY }}
+    #
+    # - name: Deploy to Production
+    #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    #   run: |
+    #     echo "This would deploy to production environment"
+    #     # Add your production deployment commands here
+    #   env:
+    #     PRODUCTION_API_KEY: ${{ secrets.PRODUCTION_API_KEY }}

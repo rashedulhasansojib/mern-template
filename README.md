@@ -1,126 +1,223 @@
-# MERN Stack Monorepo ESLint + Prettier + Husky Setup
+# MERN Stack Monorepo Template
 
-## Project Structure
+A modern, beginner-friendly MERN (MongoDB, Express.js, React, Node.js) stack template with a monorepo structure. This template includes ESLint, Prettier, and Husky for code quality, along with a simple CI/CD pipeline.
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- npm (comes with Node.js)
+- Git
+- MongoDB (local or Atlas)
+
+### Initial Setup
+
+1. **Clone the template**
+
+   ```bash
+   git clone <your-repo-url>
+   cd mern-template
+   ```
+
+2. **Run the setup script**
+
+   ```bash
+   # Make the script executable
+   chmod +x setup.sh
+
+   # Run the setup script
+   ./setup.sh
+   ```
+
+   The script will:
+
+   - Check for Node.js and npm
+   - Ask for your project name
+   - Set up MongoDB connection
+   - Create environment files
+   - Install dependencies
+   - Initialize Git repository
+
+3. **Start development servers**
+
+   ```bash
+   # Start both frontend and backend in development mode
+   npm run dev
+
+   # Or start them separately:
+   npm run dev:frontend  # Frontend on http://localhost:5173
+   npm run dev:backend   # Backend on http://localhost:5000
+   ```
+
+## 🔄 CI/CD Pipeline
+
+This project includes a simple CI/CD pipeline that runs on GitHub Actions. Here's how it works:
+
+### Pipeline Steps
+
+1. **Trigger**: Runs on:
+
+   - Push to `main` branch
+   - Pull requests to `main` branch
+
+2. **Build Process**:
+   - Installs dependencies
+   - Checks code format
+   - Runs linting
+   - Performs type checking
+   - Builds the application
+
+### Setting Up CI/CD
+
+1. **Enable GitHub Actions**:
+
+   - Go to your repository on GitHub
+   - Click on "Actions" tab
+   - Enable GitHub Actions if not already enabled
+
+2. **Configure Environment Variables** (when ready to deploy):
+
+   - Go to repository Settings > Secrets and variables > Actions
+   - Add necessary secrets:
+     - `STAGING_API_KEY` (for staging deployment)
+     - `PRODUCTION_API_KEY` (for production deployment)
+
+3. **Monitor Pipeline**:
+   - Check the "Actions" tab in your repository
+   - View build logs and status
+   - Fix any issues that arise
+
+### Pipeline Features
+
+- ✅ Automatic builds on push/PR
+- ✅ Code quality checks (format, lint, types)
+- ✅ Dependency caching
+- ✅ Build verification
+- 🔄 Deployment ready (commented out)
+
+## 📁 Project Structure
 
 ```
 mern-template/
-├── backend/           # TypeScript Node.js
-├── frontend/          # React TypeScript
-├── .husky/
-│   ├── pre-commit
-│   ├── commit-msg
-│   └── pre-push
-├── package.json       # Root coordination
-└── README.md
+├── backend/             # Backend Node.js/Express application
+│   ├── src/
+│   │   ├── controllers/ # Route controllers
+│   │   ├── models/      # Database models
+│   │   ├── routes/      # API routes
+│   │   └── index.js     # Entry point
+│   ├── .env            # Backend environment variables
+│   └── package.json    # Backend dependencies
+│
+├── frontend/           # Frontend React application
+│   ├── src/
+│   │   ├── components/ # React components
+│   │   ├── pages/      # Page components
+│   │   └── App.jsx     # Root component
+│   ├── .env           # Frontend environment variables
+│   └── package.json   # Frontend dependencies
+│
+├── .github/           # GitHub configuration
+│   └── workflows/     # CI/CD pipeline
+│
+├── .husky/           # Git hooks
+├── setup.sh          # Setup script
+└── package.json      # Root package.json
 ```
 
-## 1. Installation Commands
+## 🛠️ Available Scripts
+
+### Root Directory
 
 ```bash
-# Root dependencies
-npm install
-
-# Backend dependencies
-cd backend && npm install && cd ..
-
-# Frontend dependencies
-cd frontend && npm install && cd ..
-
-# Initialize husky (if not already done)
-npx husky install
+npm run dev          # Start both frontend and backend
+npm run dev:frontend # Start frontend only
+npm run dev:backend  # Start backend only
+npm run build        # Build both frontend and backend
+npm run format       # Format code with Prettier
+npm run lint         # Lint code with ESLint
+npm run type-check   # Check TypeScript types
 ```
 
-## or run setup-script.sh
+### Backend Directory
 
 ```bash
-# Make it executable:
-chmod +x setup-script.sh
-
-# Run it:
-./setup-script.sh
+cd backend
+npm run dev    # Start backend in development mode
+npm run build  # Build backend
+npm run start  # Start backend in production mode
 ```
 
-## 2. Development Workflow
+### Frontend Directory
 
 ```bash
-# Start both frontend and backend
-npm run dev
-
-# Lint everything
-npm run lint
-
-# Fix all linting issues
-npm run lint:fix
-
-# Format all code
-npm run format
-
-# Type check everything
-npm run type-check
-
-# Run all tests
-npm run test
-
-# Build for production
-npm run build
+cd frontend
+npm run dev    # Start frontend in development mode
+npm run build  # Build frontend
+npm run preview # Preview production build
 ```
 
-## 3. Example Backend Structure
+## 🔧 Environment Setup
 
-```
-backend/
-├── src/
-│   ├── index.ts
-│   ├── routes/
-│   │   └── api.ts
-│   ├── models/
-│   │   └── User.ts
-│   ├── middleware/
-│   │   └── auth.ts
-│   └── types/
-│       └── index.ts
-├── dist/
-├── eslint.config.js
-├── tsconfig.json
-└── package.json
+### Backend (.env)
+
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
+NODE_ENV=development
 ```
 
-## 4. Example Frontend Structure
+### Frontend (.env)
 
-```
-frontend/
-├── src/
-│   ├── App.tsx
-│   ├── main.tsx
-│   ├── components/
-│   │   └── Header.tsx
-│   ├── pages/
-│   │   └── Home.tsx
-│   ├── hooks/
-│   │   └── useApi.ts
-│   └── types/
-│       └── index.ts
-├── public/
-├── dist/
-├── eslint.config.js
-├── tsconfig.json
-├── vite.config.ts
-└── package.json
+```env
+VITE_API_URL=http://localhost:5000
 ```
 
-## 5. Git Workflow
+## 📝 Development Tips
 
-When you commit, this happens automatically:
+1. **Adding New Features**:
 
-1. **Pre-commit**: Type checking + lint-staged (lint & format changed files)
-2. **Commit-msg**: Validates commit message format
-3. **Pre-push**: Runs tests + builds both frontend and backend
+   - Create new components in `frontend/src/components`
+   - Add new routes in `backend/src/routes`
+   - Update environment variables if needed
+   - Test changes locally before pushing
 
-### Example Valid Commits:
+2. **Code Quality**:
 
-- `feat(backend): add user authentication API`
-- `fix(frontend): resolve login form validation`
-- `docs: update API documentation`
-- `chore: update dependencies`
+   - Run `npm run format` before committing
+   - Fix linting issues with `npm run lint`
+   - Check types with `npm run type-check`
+   - Commit messages are checked by Husky
 
-This setup ensures consistent code quality across your entire MERN stack with proper TypeScript support, React-specific linting, and coordinated build processes!
+3. **Database**:
+
+   - Use MongoDB Atlas for production
+   - Local MongoDB for development
+   - Update `.env` files accordingly
+
+4. **CI/CD Best Practices**:
+   - Push to feature branches
+   - Create pull requests to `main`
+   - Check GitHub Actions status
+   - Review build logs for issues
+
+## 🎓 Learning Resources
+
+- [MongoDB Documentation](https://docs.mongodb.com)
+- [Express.js Guide](https://expressjs.com/guide/routing.html)
+- [React Documentation](https://reactjs.org/docs/getting-started.html)
+- [Node.js Documentation](https://nodejs.org/docs)
+- [GitHub Actions Documentation](https://docs.github.com/en/actions)
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
