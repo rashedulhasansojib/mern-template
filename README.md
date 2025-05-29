@@ -96,26 +96,133 @@ This project includes a simple CI/CD pipeline that runs on GitHub Actions. Here'
 - ✅ Build verification
 - 🔄 Deployment ready (commented out)
 
-## 📁 Project Structure
+## 📁 Project Structure (Recommended)
 
 ```
 mern-template/
 ├── backend/             # Backend Node.js/Express application
 │   ├── src/
-│   │   ├── controllers/ # Route controllers
-│   │   ├── models/      # Database models
-│   │   ├── routes/      # API routes
-│   │   └── index.js     # Entry point
-│   ├── .env            # Backend environment variables
-│   └── package.json    # Backend dependencies
+│   │   ├── config/                 # Configuration files
+│   │   │   ├── database.ts        # Database configuration
+│   │   │   ├── cors.ts           # CORS settings
+│   │   │   └── env.ts            # Environment variables
+│   │   │
+│   │   ├── controllers/           # Route controllers
+│   │   │   ├── auth.controller.ts
+│   │   │   ├── user.controller.ts
+│   │   │   └── ...
+│   │   │
+│   │   ├── middleware/            # Custom middleware
+│   │   │   ├── auth.middleware.ts
+│   │   │   ├── error.middleware.ts
+│   │   │   └── validation.middleware.ts
+│   │   │
+│   │   ├── models/               # Database models
+│   │   │   ├── user.model.ts
+│   │   │   └── ...
+│   │   │
+│   │   ├── routes/              # API routes
+│   │   │   ├── auth.routes.ts
+│   │   │   ├── user.routes.ts
+│   │   │   └── index.ts        # Route aggregator
+│   │   │
+│   │   ├── services/           # Business logic
+│   │   │   ├── auth.service.ts
+│   │   │   ├── user.service.ts
+│   │   │   └── ...
+│   │   │
+│   │   ├── types/             # TypeScript type definitions
+│   │   │   ├── user.types.ts
+│   │   │   └── ...
+│   │   │
+│   │   ├── utils/             # Utility functions
+│   │   │   ├── logger.ts
+│   │   │   ├── validators.ts
+│   │   │   └── helpers.ts
+│   │   │
+│   │   └── server.ts          # Application entry point
+│   │
+│   ├── tests/                 # Test files
+│   │   ├── unit/
+│   │   ├── integration/
+│   │   └── e2e/
+│   │
+│   ├── logs/                  # Application logs
+│   │
+│   ├── docs/                  # API documentation
+│   │
+│   ├── scripts/              # Build/deployment scripts
+│   │
+│   ├── .env.example         # Example environment variables
+│   │
+│   ├── tsconfig.json        # TypeScript configuration
+│   └── package.json         # Dependencies and scripts
 │
 ├── frontend/           # Frontend React application
 │   ├── src/
-│   │   ├── components/ # React components
-│   │   ├── pages/      # Page components
-│   │   └── App.jsx     # Root component
-│   ├── .env           # Frontend environment variables
-│   └── package.json   # Frontend dependencies
+│   │   ├── assets/           # Static assets
+│   │   │   ├── images/
+│   │   │   ├── fonts/
+│   │   │   └── styles/
+│   │   │
+│   │   ├── components/       # Reusable components
+│   │   │   ├── common/      # Shared components
+│   │   │   │   ├── Button/
+│   │   │   │   ├── Input/
+│   │   │   │   └── Modal/
+│   │   │   │
+│   │   │   │   ├── layout/      # Layout components
+│   │   │   │   │   ├── Header/
+│   │   │   │   │   ├── Footer/
+│   │   │   │   │   └── Sidebar/
+│   │   │   │   │
+│   │   │   │   └── features/    # Feature-specific components
+│   │   │   │
+│   │   │   ├── hooks/           # Custom React hooks
+│   │   │   │   ├── useAuth.ts
+│   │   │   │   └── useForm.ts
+│   │   │   │
+│   │   │   ├── pages/           # Page components
+│   │   │   │   ├── Home/
+│   │   │   │   ├── Auth/
+│   │   │   │   └── Dashboard/
+│   │   │   │
+│   │   │   ├── services/        # API services
+│   │   │   │   ├── api.ts      # API client setup
+│   │   │   │   ├── auth.service.ts
+│   │   │   │   └── user.service.ts
+│   │   │   │
+│   │   │   ├── store/          # State management
+│   │   │   │   ├── slices/
+│   │   │   │   └── index.ts
+│   │   │   │
+│   │   │   ├── types/          # TypeScript types
+│   │   │   │   ├── api.types.ts
+│   │   │   │   └── models.types.ts
+│   │   │   │
+│   │   │   ├── utils/          # Utility functions
+│   │   │   │   ├── formatters.ts
+│   │   │   │   ├── validators.ts
+│   │   │   │   └── helpers.ts
+│   │   │   │
+│   │   │   ├── constants/      # Constants and enums
+│   │   │   │   ├── routes.ts
+│   │   │   │   └── config.ts
+│   │   │   │
+│   │   │   └── App.tsx         # Root component
+│   │   │   └── main.tsx        # Entry point
+│   │   │   └── vite-env.d.ts   # Vite type declarations
+│   │   │
+│   │   └── public/             # Public static files
+│   │
+│   ├── tests/             # Test files
+│   │   ├── unit/
+│   │   ├── integration/
+│   │   └── e2e/
+│   │
+│   ├── .env.example       # Example environment variables
+│   ├── tsconfig.json     # TypeScript configuration
+│   └── vite.config.ts    # Vite configuration
 │
 ├── .github/           # GitHub configuration
 │   └── workflows/     # CI/CD pipeline
