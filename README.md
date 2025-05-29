@@ -2,6 +2,24 @@
 
 A modern, beginner-friendly MERN (MongoDB, Express.js, React, Node.js) stack template with a monorepo structure. This template includes ESLint, Prettier, and Husky for code quality, along with a simple CI/CD pipeline.
 
+## 🎯 Using This Template
+
+### Option 1: Using GitHub Template (Recommended)
+
+1. Click the "Use this template" button at the top of this repository
+2. Choose a name for your new repository
+3. Select whether to make it public or private
+4. Click "Create repository from template"
+
+### Option 2: Manual Clone
+
+If you prefer to clone manually:
+
+```bash
+git clone https://github.com/rashedulhasansojib/mern-template.git your-project-name
+cd your-project-name
+```
+
 ## 🚀 Quick Start
 
 ### Prerequisites
